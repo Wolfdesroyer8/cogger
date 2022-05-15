@@ -13,13 +13,13 @@ ${NAME}.o: cogger.c
 compiletest: 
 	cc test.c -o test ${CFLAGS} ${TESTFLAGS}
 
-install: 
-	sudo install -D lib${NAME}.a /usr/lib/${NAME}/
-	sudo install -D cogger.h /usr/include/${NAME}/
+install: ${NAME}.o
+	install -D lib${NAME}.a /usr/lib/${NAME}/
+	install -D cogger.h /usr/include/${NAME}/
 
 uninstall:
-	sudo rm -r /usr/lib/${NAME}/
-	sudo rm -r /usr/include/${NAME}/
+	rm -r /usr/lib/${NAME}/
+	rm -r /usr/include/${NAME}/
 
 clean:
 	rm lib${NAME}.a ${NAME}.o test
