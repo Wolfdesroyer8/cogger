@@ -1,11 +1,10 @@
 NAME=cogger
 
-CFLAGS= -Wall -Wextra -ggdb -O4 -std=gnu11
-LIBFLAGS= -c
+CFLAGS= -Wall -Wextra -Werror -ggdb -O3 -std=gnu11
 TESTFLAGS= -I. -L. -lcogger
 
 ${NAME}.o: cogger.c
-	cc cogger.c -o ${NAME}.o ${CFLAGS} ${LIBFLAGS}
+	cc cogger.c -o ${NAME}.o ${CFLAGS} -c
 	ar ruv libcogger.a cogger.o
 	ranlib libcogger.a
 	make compiletest
@@ -14,8 +13,9 @@ ${NAME}.o: cogger.c
 compiletest: 
 	cc test.c -o test ${CFLAGS} ${TESTFLAGS}
 
-install: ${NAME}
-	install ${NAME} /usr/bin/${NAME}
+install: 
+	install -D lib${NAME}.a /usr/lib/${NAME}/
+	install -D cogger.h /usr/include/${NAME}/
 
 clean:
 	rm lib${NAME}.a ${NAME}.o test
